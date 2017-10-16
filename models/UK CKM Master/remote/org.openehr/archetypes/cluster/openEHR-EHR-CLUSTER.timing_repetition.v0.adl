@@ -1,0 +1,337 @@
+﻿archetype (adl_version=1.4; uid=b40ad367-5aeb-4689-93bd-576986ede5cc)
+	openEHR-EHR-CLUSTER.timing_repetition.v0
+
+concept
+	[at0000]	-- Timing - repetition
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["pt-br"] = <
+			language = <[ISO_639-1::pt-br]>
+			author = <
+				["name"] = <"Osmeire Chamelette Sanzovo">
+				["organisation"] = <"Hospital Sírio Libanês - SP">
+				["email"] = <"osmeire.acsanzovo@hsl.org.br">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Ian McNicoll">
+		["organisation"] = <"freshEHR Clinical Informatics Ltd.">
+		["email"] = <"ian@freshehr.com">
+		["date"] = <"2015-09-11">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record details of scheduled activities over periods longer than a single day.">
+			use = <"">
+			misuse = <"">
+			copyright = <"© openEHR Foundation">
+		>
+		["pt-br"] = <
+			language = <[ISO_639-1::pt-br]>
+			purpose = <"Para gravar as atividade programadas sobre períodos maiores do que um dia.">
+			use = <"">
+			misuse = <"">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)", "Heather Leslie, Ocean Informatics, Australia (openEHR Editor)", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "John Tore Valand, Helse Bergen, Norway (openEHR Editor)">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"96A51C6179A4407929F694D6961037C4">
+		["build_uid"] = <"0eff709c-01fd-4389-82fa-c4e583c44ba0">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Timing - repetition
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Repetition interval
+				value matches {
+					DV_DURATION matches {
+						value matches {PYMWD/|>=P0W|}
+					}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Single activity only
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Frequency
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::382]>
+						list = <
+							["1"] = <
+								units = <"1/wk">
+							>
+							["2"] = <
+								units = <"1/mo">
+							>
+							["3"] = <
+								units = <"1/yr">
+								magnitude = <|>=0.0|>
+								precision = <|0|>
+							>
+						>
+					>
+					DV_INTERVAL<DV_QUANTITY> matches {
+						upper matches {
+							C_DV_QUANTITY <
+								property = <[openehr::382]>
+								list = <
+									["1"] = <
+										units = <"1/wk">
+										magnitude = <|0.0..7.0|>
+										precision = <|0|>
+									>
+									["2"] = <
+										units = <"1/mo">
+										magnitude = <|0.0..31.0|>
+										precision = <|0|>
+									>
+									["3"] = <
+										units = <"1/yr">
+										magnitude = <|0.0..365.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+						lower matches {
+							C_DV_QUANTITY <
+								property = <[openehr::382]>
+								list = <
+									["1"] = <
+										units = <"1/wk">
+										magnitude = <|0.0..7.0|>
+										precision = <|0|>
+									>
+									["2"] = <
+										units = <"1/mo">
+										magnitude = <|0.0..31.0|>
+										precision = <|0|>
+									>
+									["3"] = <
+										units = <"1/yr">
+										magnitude = <|0.0..365.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Specific date
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Specific day of week
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|0..6|}
+					}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..*} matches {	-- Specific day of month
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|1..31|}
+					}
+				}
+			}
+			CLUSTER[at0006] occurrences matches {0..*} matches {	-- Specific event
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Event name
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Start interval
+						value matches {
+							DV_DURATION matches {
+								value matches {PYMWD}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0010] occurrences matches {0..*} matches {	-- On /off cycle
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- On
+						value matches {
+							DV_DURATION matches {
+								value matches {PYMWD/|>=P0Y|}
+							}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Off
+						value matches {
+							DV_DURATION matches {
+								value matches {PYWD/|>=P0Y|}
+							}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Repetitions
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Timing - repetition">
+					description = <"Details of timing schedules repeating over periods longer than a single day.">
+				>
+				["at0001"] = <
+					text = <"Specific date">
+					description = <"The activity should take place on a specific date.">
+					comment = <"e.g. 'on 12 Jan 2017'">
+				>
+				["at0002"] = <
+					text = <"Repetition interval">
+					description = <"The interval between repetitions of the activity.">
+					comment = <"e.g. 'Every 3 weeks'">
+				>
+				["at0003"] = <
+					text = <"Specific day of week">
+					description = <"The activity should take place on a specific day of the week, with 0 representing Sunday.">
+					comment = <"e.g. 'On Mondays, Wednesdays and Fridays'.">
+				>
+				["at0004"] = <
+					text = <"Specific day of month">
+					description = <"The activity should take place on a specific day of the month.">
+					comment = <"e.g. 'on the 3rd, 13th and 23rd of each month'.">
+				>
+				["at0005"] = <
+					text = <"Event name">
+					description = <"The name of the event that triggers the activity to take place.">
+				>
+				["at0006"] = <
+					text = <"Specific event">
+					description = <"The activity should take place in relation to a specific named event.">
+				>
+				["at0009"] = <
+					text = <"Start interval">
+					description = <"The period of time before or after the named event when the activity should take place. Negative durations can be used to signifify that the activity should be taken before a known event.">
+					comment = <"e.g. '3 days after onset of menstruation = menstrual onset + 3 days', '2 weeks prior to admission= admission -2 weeks'.">
+				>
+				["at0010"] = <
+					text = <"On /off cycle">
+					description = <"A cycle of activity where an on-off pattern is required.">
+					comment = <"e.g. 'take 3 tablets daily for 1 week, omit a week, then take 3 tablets daily for 1 week, repeat 4 times'">
+				>
+				["at0011"] = <
+					text = <"On">
+					description = <"The period of time for which the activity should take place.">
+				>
+				["at0012"] = <
+					text = <"Off">
+					description = <"The period of time for which the activity should NOT take place.">
+				>
+				["at0013"] = <
+					text = <"Repetitions">
+					description = <"The number of repetitions of the on/off cycle.">
+				>
+				["at0014"] = <
+					text = <"Frequency">
+					description = <"The number of days per time period on which the activity is to take place.">
+					comment = <"e.g. \"3 times per week\", \"2-4 times per month\".">
+				>
+				["at0015"] = <
+					text = <"Single activity only">
+					description = <"The activity should only be performed on a single occasion and is not to be repeated.">
+				>
+			>
+		>
+		["pt-br"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tempo - repetição">
+					description = <"Detalhes de horários de tempo de repetição durante períodos mais longos do que um dia.">
+				>
+				["at0001"] = <
+					text = <"Data específica">
+					description = <"A atividade deve ocorrer em uma data específica.">
+					comment = <"por exemplo: \"em 12 de janeiro de 2017\".">
+				>
+				["at0002"] = <
+					text = <"Intervalo de repetição">
+					description = <"O intervalo de tempo entre repetições de atividades.">
+					comment = <"por exemplo: \"Cada 3 semanas\"">
+				>
+				["at0003"] = <
+					text = <"Dia da semana específico">
+					description = <"A atividade deve ocorrer em um dia específico da semana, com o 0 representando o domingo.">
+					comment = <"Por exemplo: \"Segundas, quartas e sextas feiras\"">
+				>
+				["at0004"] = <
+					text = <"Dia do mês específico">
+					description = <"A atividade deverá ser realizada em um dia específico do mês.">
+					comment = <"Por exemplo: \"no 3º dia, 13º dia e 23º de cada mês\".">
+				>
+				["at0005"] = <
+					text = <"Nome do evento">
+					description = <"O nome do evento que desencadeia a atividade para tomar o lugar.">
+				>
+				["at0006"] = <
+					text = <"Evento específico">
+					description = <"A atividade deve ocorrer em relação a um determinado evento de chamada.">
+				>
+				["at0009"] = <
+					text = <"Início do intervalo">
+					description = <"O período de tempo antes ou depois o evento nomeado, quando a atividade deve ocorrer. Durações negativas podem ser utilizadas para indicar que a atividade deve ser realizada antes do evento conhecido.">
+					comment = <"por exemplo: \"3 dias depois do início da menstruação = início da menstruação + 3 dias\", \"2 semanas antes da admissão = admissão - 2 semanas\".">
+				>
+				["at0010"] = <
+					text = <"Ciclo dentro/fora">
+					description = <"Um ciclo de atividades em que é exigido um padrão on-off.">
+					comment = <"Por exemplo: \"tomar 3 comprimidos diariamente por 1 semana, pular uma semana, então tomar 3 comprimidos diariamente por 1 semana, repetir por 4 ciclos\".">
+				>
+				["at0011"] = <
+					text = <"Dentro">
+					description = <"O período de tempo em que a atividade deve ser realizada.">
+				>
+				["at0012"] = <
+					text = <"Fora">
+					description = <"O período de tempo em que a atividade não deve ocorrer.">
+				>
+				["at0013"] = <
+					text = <"Repetições">
+					description = <"O número de repetições do ciclo on/off.">
+				>
+				["at0014"] = <
+					text = <"Frequência">
+					description = <"O número de dias por período de tempo no qual a atividade será realizada.">
+					comment = <"Por exemplo: \"3 vezes por semana\"; \"2-4 vezes por mês\".">
+				>
+				["at0015"] = <
+					text = <"Atividade única">
+					description = <"A atividade deve ser realizada apenas uma vez e não deve ser repetida.">
+				>
+			>
+		>
+	>

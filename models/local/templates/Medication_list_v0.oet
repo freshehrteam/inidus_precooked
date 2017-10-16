@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>e9e6f505-9759-4e55-936e-450dc8f111fc</id>
+  <name>Medication_list_v0</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.medication_list.v0" concept_name="Medication list">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.medication_order.v1" concept_name="Medication order" path="/content" hide_on_form="true">
+      <Rule path="/activities[at0001]" hide_on_form="true" />
+      <Rule path="/activities[at0001]/description[at0002]" hide_on_form="true" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0091]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0092]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0094]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0047]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0173]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0174]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0062]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0044]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0105]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0107]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0148]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]" hide_on_form="true" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]/items[at0013]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]/items[at0011]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]/items[at0016]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]/items[at0060]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]/items[at0050]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0129]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0167]" max="0" />
+      <Rule path="/protocol[at0005]" hide_on_form="true" />
+      <Rule path="/protocol[at0005]/items[at0004]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.therapeutic_direction.v1" concept_name="Therapeutic direction" max="0" path="/activities[at0001]/description[at0002]/items[at0177]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.dosage.v0" concept_name="Dosage" path="/items[at0176]">
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.timing_daily.v0" concept_name="Timing - daily" path="/items[at0037]" />
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.timing_repetition.v0" concept_name="Timing - repetition" path="/items[at0090]" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medication_order_summary.v0" concept_name="Medication course summary" path="/activities[at0001]/description[at0002]/items[at0113]/items[at0112]">
+        <Rule path="/items[at0002]" clone="true" name="Date prescription issued" />
+        <Rule path="/items[at0002]" clone="true" name="Date authorised" />
+        <Rule path="/items[at0002]" clone="true" name="Date administered" />
+        <Rule path="/items[at0002]" clone="true" name="Date dispensed" />
+        <Rule path="/items[at0002]" clone="true" name="Date discontinued" />
+      </Items>
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0005]" hide_on_form="true" />
+      <hide_on_form>true</hide_on_form>
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.medication_list.v0">
+    <digest id="MD5-CAM-1.0.1">6580C641D816380326253E28A85DE60C</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-INSTRUCTION.medication_order.v1">
+    <digest id="MD5-CAM-1.0.1">9AA29329132486596FD39092B50285B7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.therapeutic_direction.v1">
+    <digest id="MD5-CAM-1.0.1">C62800A1D4AD34D700621028ABDCA235</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.dosage.v0">
+    <digest id="MD5-CAM-1.0.1">2A7C12A639D15173EDBF7F43EF93FA7F</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.timing_daily.v0">
+    <digest id="MD5-CAM-1.0.1">176357EA6533C6E6E33C82ADA0282D41</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.timing_repetition.v0">
+    <digest id="MD5-CAM-1.0.1">96A51C6179A4407929F694D6961037C4</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.medication_order_summary.v0">
+    <digest id="MD5-CAM-1.0.1">EC6F51A4CD0D4A77E44E56EF799E1DFF</digest>
+  </integrity_checks>
+</template>
